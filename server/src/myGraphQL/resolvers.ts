@@ -1,18 +1,33 @@
 import { IResolvers } from '@graphql-tools/utils';
+import { ObjectId } from 'mongodb';
 
-import { movies } from '../mock';
+import { IDatabase, IMovies } from 'lib/types';
 
 export const resolvers: IResolvers = {
   Query: {
-    movies: () => movies,
+    movies: async (_root: undefined, _args: {}, { db }: { db: IDatabase }): Promise<IMovies[]> => {
+      return await db.movies.find().toArray();
+    },
   },
   Mutation: {
-    deleteMovie: (_root: undefined, { id }: { id: string }) => {
-      const movieIndex = movies.findIndex(({ id: currId }) => currId === id);
-      if (movieIndex !== -1) {
-        return movies.splice(movieIndex, 1)[0];
+    deleteMovie: async (
+      _root: undefined,
+      { id }: { id: string },
+      { db }: { db: IDatabase },
+    ): Promise<IMovies> => {
+      const deleteRes = await db.movies.findOneAndDelete({
+        _id: new ObjectId(id),
+      });
+
+      if (!deleteRes.value) {
+        throw new Error('failed to delete movie');
       }
-      throw new Error('Failed to delete listing');
+
+      return deleteRes.value;
     },
+  },
+
+  Movie: {
+    id: (movie: IMovies): string => movie._id.toString(),
   },
 };
