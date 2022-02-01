@@ -2,7 +2,7 @@ require('dotenv').config();
 
 import { ObjectId } from 'mongodb';
 import { connectDatabase } from '../src/database';
-import { IMovies } from '../src/lib/types';
+import { IMovie } from '../src/lib/types';
 
 const seed = async () => {
   try {
@@ -10,7 +10,7 @@ const seed = async () => {
 
     const db = await connectDatabase();
 
-    const movies: IMovies[] = [
+    const movies: IMovie[] = [
       {
         _id: new ObjectId(),
         name: 'The Shawshank Redemption',

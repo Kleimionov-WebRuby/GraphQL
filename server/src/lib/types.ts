@@ -1,11 +1,13 @@
 import { ObjectId, Collection } from 'mongodb';
 
-export interface IMovies {
+export interface IMovie {
   _id: ObjectId;
   name: string;
   genre: string;
 }
 
 export interface IDatabase {
-  movies: Collection<IMovies>;
+  movies: Collection<IMovie>;
 }
+
+export type TApolloContext = { db: IDatabase };

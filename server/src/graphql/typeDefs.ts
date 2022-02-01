@@ -9,6 +9,7 @@ export const typeDefs = gql`
 
   type Query {
     movies: [Movie!]!
+    moviesById(id: ID!): Movie!
   }
   type Mutation {
     deleteMovie(id: ID!): Movie!
