@@ -1,6 +1,8 @@
 import { MongoClient } from 'mongodb';
 
-export const connectDatabase = async () => {
+import { IDatabase } from 'lib/types';
+
+export const connectDatabase = async (): Promise<IDatabase> => {
   const url = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net`;
 
   const client = await MongoClient.connect(url);

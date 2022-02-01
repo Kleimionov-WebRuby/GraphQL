@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "seed": "ts-node temp/seed.ts"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +17,6 @@
     "express-graphql": "^0.7.1",
     "graphql": "^14.1.1",
     "mongodb": "^4.3.1",
-    "mongoose": "^5.4.17",
     "nodemon": "^1.19.4"
   },
   "devDependencies": {

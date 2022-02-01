@@ -15,9 +15,6 @@ const startServer = async (app: Application) => {
   app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
   });
-
-  const movies = await db.movies.find().toArray();
-  console.log('🚀 ~ startServer ~ movies', movies);
 };
 
 startServer(express());
