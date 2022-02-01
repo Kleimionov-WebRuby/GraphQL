@@ -1,12 +1,12 @@
 export const movies = [
   {
     id: '1',
-    name: 'Name 1',
-    genre: 'Genre 1',
+    name: 'Morbius',
+    genre: 'Action',
   },
   {
     id: '2',
-    name: 'Name 2',
-    genre: 'Genre 2',
+    name: 'Scream',
+    genre: 'Horror',
   },
 ];

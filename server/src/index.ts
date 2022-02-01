@@ -1,20 +1,23 @@
-import express from 'express';
+require('dotenv').config();
+import express, { Application } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 
 import { resolvers, typeDefs } from './myGraphQL';
+import { connectDatabase } from './database';
 
-const app = express();
-const PORT = 3005;
-
-const startServer = async () => {
-  const server = new ApolloServer({ typeDefs, resolvers });
+const startServer = async (app: Application) => {
+  const db = await connectDatabase();
+  const server = new ApolloServer({ typeDefs, resolvers, context: () => ({ db }) });
 
   await server.start();
   server.applyMiddleware({ app, path: '/api' });
 
-  app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+  app.listen(process.env.PORT, () => {
+    console.log(`Server listening on port ${process.env.PORT}`);
   });
+
+  const movies = await db.movies.find().toArray();
+  console.log('🚀 ~ startServer ~ movies', movies);
 };
 
-startServer();
+startServer(express());
