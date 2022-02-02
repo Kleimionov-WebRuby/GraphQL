@@ -6,8 +6,14 @@ export interface IMovie {
   genre: string;
 }
 
+export interface IUser {
+  _id: ObjectId;
+  name: string;
+}
+
 export interface IDatabase {
   movies: Collection<IMovie>;
+  users: Collection<IUser>;
 }
 
 export type TApolloContext = { db: IDatabase };

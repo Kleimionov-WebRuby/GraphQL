@@ -2,7 +2,7 @@ require('dotenv').config();
 
 import { ObjectId } from 'mongodb';
 import { connectDatabase } from '../src/database';
-import { IMovie } from '../src/lib/types';
+import { IMovie, IUser } from '../src/lib/types';
 
 const seed = async () => {
   try {
@@ -62,9 +62,42 @@ const seed = async () => {
         genre: 'Comedy',
       },
     ];
+    const users: IUser[] = [
+      {
+        _id: new ObjectId(),
+        name: 'TurboSlayer',
+      },
+      {
+        _id: new ObjectId(),
+        name: 'CrypticHatter',
+      },
+      {
+        _id: new ObjectId(),
+        name: 'CrashTV',
+      },
+      {
+        _id: new ObjectId(),
+        name: 'Toxic Headshot',
+      },
+      {
+        _id: new ObjectId(),
+        name: 'IronMerc',
+      },
+      {
+        _id: new ObjectId(),
+        name: 'SteelTitan',
+      },
+      {
+        _id: new ObjectId(),
+        name: 'Blue Defender',
+      },
+    ];
 
     for (const movie of movies) {
       await db.movies.insertOne(movie);
+    }
+    for (const user of users) {
+      await db.users.insertOne(user);
     }
 
     console.log('[seed] : success');

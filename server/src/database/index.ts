@@ -10,5 +10,6 @@ export const connectDatabase = async (): Promise<IDatabase> => {
 
   return {
     movies: db.collection('test_movies'),
+    users: db.collection('test_users'),
   };
 };
