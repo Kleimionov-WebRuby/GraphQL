@@ -1,2 +1,17 @@
-export * from './deleteMovie';
-export * from './types';
+import { gql } from '@apollo/client';
+import { IMovie } from '../fetchMovies';
+
+export const DELETE_MOVIE = gql`
+  mutation ($id: ID!) {
+    deleteMovie(id: $id) {
+      id
+    }
+  }
+`;
+
+export interface IDeleteMoviesData {
+  deleteMovie: IMovie;
+}
+export interface IDeleteMoviesVariables {
+  id: string;
+}

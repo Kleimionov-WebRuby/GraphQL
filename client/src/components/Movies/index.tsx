@@ -1,30 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@apollo/client';
 
-import { fetchMovies, IMovie } from 'api/movies/fetchMovies';
-import { deleteMovie } from 'api/movies/deleteMovie';
+import { MOVIES, IMoviesData } from 'api/movies/fetchMovies';
+import MovieItem from 'components/Movie';
 
 const Movies = () => {
-  const [movies, setMovies] = useState<IMovie[]>([]);
+  const { loading, error, data, refetch } = useQuery<IMoviesData>(MOVIES);
 
-  useEffect(() => {
-    (async function () {
-      const response = await fetchMovies();
-
-      setMovies(response);
-    })();
-  }, []);
-
-  const handleDelete = (id: string) => async () => {
-    await deleteMovie(id);
-  };
+  if (loading) return <>Loading...</>;
+  if (error) return <>{error.message}</>;
 
   return (
     <ul>
-      {movies.map((i) => (
-        <li key={i.id} style={{ display: 'flex' }}>
-          <div>{i.name}</div>
-          <button onClick={handleDelete(i.id)}>Delete</button>
-        </li>
+      {data?.movies.map((element) => (
+        <MovieItem key={element.id} refetch={refetch} {...element} />
       ))}
     </ul>
   );
