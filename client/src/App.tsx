@@ -1,5 +1,11 @@
+import Movies from 'components/Movies';
+
 const App = () => {
-  return <div className="App">Hello My React App!</div>;
+  return (
+    <div className="App">
+      <Movies />
+    </div>
+  );
 };
 
 export default App;
