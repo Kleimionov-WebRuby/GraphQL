@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { IMovie } from '../fetchMovies';
 
 export const DELETE_MOVIE = gql`
-  mutation ($id: ID!) {
+  mutation DeleteMovie($id: ID!) {
     deleteMovie(id: $id) {
       id
     }
