@@ -1,33 +1,32 @@
 import { useEffect, useState } from 'react';
 
-import { server } from 'api';
-
-const MOVIES = `
-  query Movies  {
-    movies {
-      id
-      name
-      genre
-    }
-  }
-`;
+import { fetchMovies, IMovie } from 'api/movies/fetchMovies';
+import { deleteMovie } from 'api/movies/deleteMovie';
 
 const Movies = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<IMovie[]>([]);
 
   useEffect(() => {
     (async function () {
-      const { data } = await server.fetch({ query: MOVIES });
-      setMovies(data.movies);
+      const response = await fetchMovies();
+
+      setMovies(response);
     })();
   }, []);
 
+  const handleDelete = (id: string) => async () => {
+    await deleteMovie(id);
+  };
+
   return (
-    <div>
-      {movies.map((i: any) => (
-        <div>{i.name}</div>
+    <ul>
+      {movies.map((i) => (
+        <li key={i.id} style={{ display: 'flex' }}>
+          <div>{i.name}</div>
+          <button onClick={handleDelete(i.id)}>Delete</button>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
